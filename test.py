@@ -50,11 +50,16 @@ def write_to_binary(values, internal_template_list):
             internal_list.append(i)
         else:
             raise Exception("Unknown Type Error")
+
+    print(internal_list)
     for counter in range(0, len(internal_list)):
-        if internal_list[counter] < 255:
+        print("The Counter is: {}".format(counter))
+        print("Number of bits: {}".format(internal_template_list[counter]))
+        print("Value: {}".format(values[counter]))
+        if internal_template_list[counter] <= 8:
             internal_bytes.append(internal_list[counter])
-            print(internal_bytes[counter])
-        elif internal_list[counter] > 255:
+            print(internal_bytes[len(internal_bytes)-1])
+        elif internal_template_list[counter] > 8:
             bit_counter = int(internal_template_list[counter]/8)
             print("Larger than 255 value encountered. Value is {}, attempting to convert to bytes. Template bits length is {}".format(internal_list[counter], internal_template_list[counter]))
             #result = internal_list[counter].to_bytes(bit_counter, 'little')
@@ -69,14 +74,15 @@ def write_to_binary(values, internal_template_list):
                 internal_bytes.append(result)
                 print("Bitshifting value of {} by {}, result is {}. New Length of Bytearray is {}".format(internal_list[counter], bitshift, result, len(internal_bytes)))
     print(internal_bytes)
+    print(len(internal_bytes))
     return internal_bytes
 def bytes_to_list(bytes):
     result =bytearray()
 
-    result.append(bytes[11])
-    result.append(bytes[12])
-    result.append(bytes[13])
-    result.append(bytes[14])
+    result.append(bytes[50])
+    result.append(bytes[51])
+    result.append(bytes[52])
+    result.append(bytes[53])
     new_result = int.from_bytes(result, byteorder='big')
     print(new_result)
     return result
